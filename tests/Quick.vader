@@ -1,0 +1,48 @@
+Given:
+  
+Execute:
+  for my in range(1,10)
+    call histadd('cmd', 'echo ' . my)
+  endfor
+  call Quick_Add_Entries()
+  normal! ggyG
+  normal q
+  normal P
+  g/^$/d
+Expect:
+  [a] echo 10
+  [s] echo 9
+  [d] echo 8
+  [f] echo 7
+  [g] echo 6
+  [h] echo 5
+  [j] echo 4
+  [k] echo 3
+  [l] echo 2
+  [m] echo 1
+
+Given:
+  
+Execute:
+  call histdel('cmd')
+
+Given:
+  
+Execute:
+  call histdel('cmd')
+  for my in range(1, 7)
+    call histadd('cmd', 'echo ' . my)
+  endfor
+  call Quick_Add_Entries()
+  normal! ggyG
+  normal q
+  normal P
+  g/^$/d
+Expect:
+  [a] echo 7
+  [s] echo 6
+  [d] echo 5
+  [f] echo 4
+  [g] echo 3
+  [h] echo 2
+  [j] echo 1
